@@ -1,7 +1,6 @@
 #include <iostream>
 #include <chrono>
 #include <vector>
-#include <cstdlib>
 
 using std::chrono::duration;
 using std::chrono::duration_cast;
@@ -17,11 +16,11 @@ void insertionSort(vector<int> &vector)
     {
         int element = vector[i];
 
-        for (j = i; j > 0 && vector[j - 1] < element; j--)
+        for (j = i - 1; j >= 0 && vector[j] > element; j--)
         {
-            vector[j] = vector[j - 1];
+            vector[j + 1] = vector[j];
         }
-        vector[j] = element;
+        vector[j + 1] = element;
     }
 }
 
@@ -38,8 +37,8 @@ void generateVector(vector<int> &vector, int size)
 {
     for (int i = 0; i < size; i++)
     {
-        int random_number = 1 + (rand() % 1000); // generating and pushing random numbers into our vector between 1-1000
-        vector.push_back(random_number);
+        int vector_element = size - i;
+        vector.push_back(vector_element);
     }
 }
 
@@ -55,7 +54,6 @@ void calculateTime(vector<int> &vector, int index)
 
 int main(void)
 {
-    srand(time(NULL));
 
     vector<int> vector1;
     vector<int> vector2;
