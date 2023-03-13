@@ -50,5 +50,6 @@ int main(void)
 
 /*
     Second Function & Recursive Logic:
-
+        2^8 can be represented as (2^2)^4 , (m*m)^(n/2)
+        2^9 can be represented as 2*(2^2)^4 , (m*m)^(n-1/2)*m
 */
