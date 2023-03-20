@@ -32,7 +32,46 @@ public:
 
     void pushSparse(sparse &temp);
     void increaseNonzero();
+    sparseMatrix make_transpose_sparse_matrix(int cols);
 };
+
+sparseMatrix sparseMatrix::make_transpose_sparse_matrix(int cols)
+{
+    // Create a new empty sparse matrix to store the transpose
+    sparseMatrix transpose_matrix;
+    transpose_matrix.nonzero = this->nonzero;
+
+    transpose_matrix.sparse_vector = vector<sparse>(nonzero, sparse{0, 0, 0});
+
+    // Compute the number of non-zero elements in each column of the original matrix
+    std::vector<int>
+        col_non_zero(cols, 0);
+    for (int i = 0; i < this->nonzero; i++)
+    {
+        col_non_zero[this->sparse_vector[i].cols - 1]++;
+    }
+
+    // Compute the list heads for the transpose matrix
+    std::vector<int> list_heads(cols + 1, 0);
+    for (int j = 1; j <= cols; j++)
+    {
+        list_heads[j] = list_heads[j - 1] + col_non_zero[j - 1];
+    }
+
+    // Compute the transpose of the matrix
+    for (int i = 0; i < this->nonzero; i++)
+    {
+        int j = this->sparse_vector[i].cols;
+        int index = list_heads[j - 1];
+
+        sparse temp = {.rows = this->sparse_vector[i].cols, .cols = this->sparse_vector[i].rows, .value = this->sparse_vector[i].value};
+        transpose_matrix.sparse_vector[index] = temp;
+
+        list_heads[j - 1]++;
+    }
+
+    return transpose_matrix;
+}
 
 void sparseMatrix::increaseNonzero()
 {
@@ -100,6 +139,8 @@ ostream &operator<<(ostream &os, const sparseMatrix &object)
         os << setw(4) << left << object.sparse_vector.at(i).value;
     }
 
+    os << endl;
+
     return os;
 }
 
@@ -139,6 +180,14 @@ int main(void)
     cout << "\nSparse Matrix" << endl;
 
     cout << object;
+
+    // returning the new transposed matrix and storing it into transposed_sparse_matrix as it's asked in the question
+    sparseMatrix transposed_sparse_matrix = object.make_transpose_sparse_matrix(cols);
+
+    cout << endl
+         << "Transposed Sparse Matrix" << endl;
+    cout << transposed_sparse_matrix;
+    cout << endl;
 
     return 0;
 }
