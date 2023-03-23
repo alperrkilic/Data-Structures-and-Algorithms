@@ -4,11 +4,17 @@
 
 int main(void)
 {
-    String String(50);
+    int size;
+
+    std::cout << "Please enter the size: ";
+    std::cin >> size;
+
+    String String(size);
 
     String.set_string();
-
     String.display_string();
+    String.count_words();
+    String.find_duplicates();
 
     return 0;
 }

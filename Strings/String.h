@@ -14,6 +14,8 @@ public:
     int find_strlen();
     void set_string();
     void display_string();
+    void count_words();
+    void find_duplicates();
 };
 
 #endif
