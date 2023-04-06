@@ -119,6 +119,55 @@ int FindMax(struct Node *p)
     return max;
 }
 
+Node *search(struct Node *p, int key)
+{
+    while (p != nullptr)
+    {
+        if (key == p->data)
+        {
+            return p;
+        }
+        p = p->next;
+    }
+
+    return nullptr;
+}
+
+Node *recursive_search(struct Node *p, int key)
+{
+    if (p == nullptr)
+    {
+        return nullptr;
+    }
+
+    if (key == p->data)
+    {
+        return p;
+    }
+
+    return recursive_search(p->next, key);
+}
+
+Node *improved_search(struct Node *p, int key)
+{
+    Node *q{nullptr};
+
+    while (p != nullptr)
+    {
+        if (key == p->data && p != first)
+        {
+            q->next = p->next;
+            p->next = first;
+            first = p;
+            return p;
+        }
+        q = p;
+        p = p->next;
+    }
+
+    return nullptr;
+}
+
 int main(void)
 {
     int A[] = {3, 5, 7, 10, 15};
