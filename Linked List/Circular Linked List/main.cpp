@@ -65,14 +65,117 @@ void recursive_display(struct Node *h)
     cout << endl;
 }
 
+int Length(struct Node *p)
+{
+    int len = 0;
+
+    do
+    {
+        if (p)
+        {
+            len++;
+            p = p->next;
+        }
+    } while (p->next != head);
+
+    return len;
+}
+
+void insert_node(struct Node *p, int index, int x)
+{
+
+    if (index < 0 || index > Length(p))
+    {
+        return;
+    }
+
+    Node *temp = new Node;
+    temp->data = x;
+
+    if (index == 0) // inserting before head node
+    {
+        if (head == nullptr) // if head node does not exist which means we don't have any node
+        {
+            head = temp;
+            head->next = head;
+        }
+        else
+        {
+            while (p->next != head)
+            {
+                p = p->next; // last element will be p now
+            }
+            p->next = temp;
+            temp->next = head;
+            head = temp;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < index - 1; i++)
+        {
+            p = p->next;
+        }
+        temp->next = p->next;
+        p->next = temp;
+    }
+}
+
+int delete_node(struct Node *p, int index)
+{
+    int x;
+
+    if (index <= 0 || p == nullptr)
+    {
+        return -1;
+    }
+
+    if (index == 1)
+    {
+        if (head == head->next) // if there's only one node
+        {
+            x = head->data;
+            delete head;
+            head = nullptr;
+        }
+        else
+        {
+            while (p->next != head) // if there's more than one node and we're trying to delete head node
+            {
+                p = p->next;
+            }
+            p->next = head->next;
+            x = head->data;
+            delete head;
+            head = p->next;
+        }
+    }
+    else // deleting from a specific place
+    {
+        struct Node *q;
+
+        for (int i = 0; i < index - 2; i++)
+        {
+            p = p->next;
+        }
+        q = p->next;
+        p->next = q->next;
+        x = q->data;
+        delete q;
+    }
+
+    return x;
+}
+
 int main(void)
 {
     int A[] = {2, 3, 4, 5, 6};
 
     create(A, 5);
 
+    delete_node(head, 5);
+
     display(head);
-    recursive_display(head);
 
     return 0;
 }
