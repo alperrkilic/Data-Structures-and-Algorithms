@@ -25,6 +25,7 @@ public:
     void Insert(int index, T x);
     int Delete(int index);
     int Length();
+    void find_middle();
 };
 
 template <class T>
@@ -154,6 +155,32 @@ int LinkedList<T>::Length()
     return length;
 }
 
+template <class T>
+void LinkedList<T>::find_middle()
+{
+    /*
+        Basically when q is moving 2 times and p is moving 1 time, when q becomes nullptr, p will be the middle node
+    */
+
+    Node<T> *p = first;
+    Node<T> *q = first;
+
+    while (q != nullptr)
+    {
+        q = q->next;
+        if (q != nullptr)
+        {
+            q = q->next;
+        }
+        if (q != nullptr)
+        {
+            p = p->next;
+        }
+    }
+
+    cout << "Middle Element is: " << p->data << endl;
+}
+
 int main()
 {
 
@@ -162,6 +189,8 @@ int main()
 
     l.Insert(0, 8);
     l.Display();
+
+    l.find_middle();
 
     return 0;
 }
