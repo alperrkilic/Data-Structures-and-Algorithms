@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "stack": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "c:\\Users\\balpe\\OneDrive\\Masa�st�\\Yazilim\\CENG218\\LABS\\Lab8 - Maze with Stack",
+            "binaryPath": "c:\\Users\\balpe\\OneDrive\\Masa�st�\\Yazilim\\CENG218\\LABS\\Lab8 - Maze with Stack\\main.exe",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "c:\\Lab8 - Maze with Stack",
+            "binaryPath": "c:\\Lab8 - Maze with Stack\\main.exe",
+            "binaryArgs": []
+        }
+    ],
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
+}
