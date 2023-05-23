@@ -11,6 +11,10 @@ int main(void)
     t.preorder(t.root);
     std::cout << "\nInorder: ";
     t.inorder(t.root);
+    int height = t.height(t.root);
+    std::cout << "\nHeight: " << height << std::endl;
+    int count = t.count(t.root);
+    std::cout << "Node count: " << count << std::endl;
 
     return 0;
 }

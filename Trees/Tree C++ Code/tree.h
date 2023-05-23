@@ -12,8 +12,9 @@ public:
     void preorder(Node *p);
     void inorder(Node *p);
     void postorder(Node *p);
-    // void level_order(Node *p);
+    void level_order(Node *p);
     int height(Node *root);
+    int count(Node *p);
 };
 
 #endif

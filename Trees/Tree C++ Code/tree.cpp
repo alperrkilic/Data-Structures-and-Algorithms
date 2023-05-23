@@ -78,15 +78,33 @@ void Tree::postorder(Node *p) // left right root
     }
 }
 
-// void Tree::level_order(Node *p)
-// {
-// }
+void Tree::level_order(Node *p)
+{
+    Queue q;
+    std::cout << p->data << " ";
+    q.enqueue(p);
+
+    while (q.isEmpty() != false)
+    {
+        p = q.dequeue();
+        if (p->lchild != nullptr)
+        {
+            std::cout << p->lchild->data << " ";
+            q.enqueue(p->lchild);
+        }
+        if (p->rchild != nullptr)
+        {
+            std::cout << p->rchild->data << " ";
+            q.enqueue(p->rchild);
+        }
+    }
+}
 
 int Tree::height(Node *root)
 {
     int x = 0, y = 0;
 
-    if (this->root == nullptr)
+    if (root == nullptr)
     {
         return 0;
     }
@@ -102,4 +120,17 @@ int Tree::height(Node *root)
     {
         return y + 1;
     }
+}
+
+int Tree::count(Node *p)
+{
+    int x, y;
+
+    if (p != nullptr)
+    {
+        x = count(p->lchild);
+        y = count(p->rchild);
+        return x + y + 1;
+    }
+    return 0;
 }
