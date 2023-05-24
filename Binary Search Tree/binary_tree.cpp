@@ -129,3 +129,89 @@ void BinaryTree::insert(Node *t, int key)
         r->rchild = p;
     }
 }
+
+Node *BinaryTree::recursive_delete(Node *p, int key)
+{
+
+    if (p == nullptr)
+    {
+        return nullptr;
+    }
+
+    if (p->lchild == nullptr && p->rchild == nullptr)
+    {
+        if (p == this->root)
+        {
+            this->root = nullptr;
+        }
+        delete p;
+        return nullptr;
+    }
+
+    if (key < p->data)
+    {
+        p->lchild = recursive_delete(p->lchild, key);
+    }
+    else if (key > p->data)
+    {
+        p->rchild = recursive_delete(p->rchild, key);
+    }
+    else
+    {
+        Node *q;
+
+        if (find_height(p->lchild) > find_height(p->rchild)) // check which side has more height
+        {
+            q = in_pre(p->lchild); // get the predecessor into q
+            p->data = q->data;
+            p->lchild = recursive_delete(p->lchild, q->data);
+        }
+        else
+        {
+            q = in_suc(p->lchild); // get the successor into q
+            p->data = q->data;
+            p->rchild = recursive_delete(p->rchild, q->data);
+        }
+    }
+
+    return p;
+}
+
+Node *BinaryTree::in_pre(Node *p)
+{
+    while (p && p->rchild != nullptr)
+    {
+        p = p->rchild;
+    }
+    return p;
+}
+
+Node *BinaryTree::in_suc(Node *p)
+{
+    while (p && p->lchild != nullptr)
+    {
+        p = p->lchild;
+    }
+    return p;
+}
+
+int BinaryTree::find_height(Node *p)
+{
+    int x, y;
+
+    if (p == nullptr)
+    {
+        return 0;
+    }
+    x = find_height(p->lchild);
+    y = find_height(p->rchild);
+
+    if (x > y)
+    {
+        return x + 1;
+    }
+    else
+    {
+        return y + 1;
+    }
+}

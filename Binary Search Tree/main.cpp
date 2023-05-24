@@ -16,5 +16,14 @@ int main(void)
     std::cout << "Postorder : ";
     tree.postorder_traversal(tree.root);
 
+    int element_to_delete;
+
+    std::cout << "\n\nPlease enter an element to delete: ";
+    std::cin >> element_to_delete;
+
+    tree.recursive_delete(tree.root, element_to_delete);
+    std::cout << "\nInorder after deleting" << element_to_delete << "  : ";
+    tree.inorder_traversal(tree.root);
+
     return 0;
 }

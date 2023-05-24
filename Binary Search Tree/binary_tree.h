@@ -14,6 +14,10 @@ public:
     void postorder_traversal(Node *t);
     Node *recursive_insert(Node *p, int key);
     Node *recursive_search(Node *t, int key);
+    Node *recursive_delete(Node *p, int key);
+    int find_height(Node *p);
+    Node *in_pre(Node *p);
+    Node *in_suc(Node *p);
     BinaryTree(/* args */);
     ~BinaryTree();
 };
